@@ -20,21 +20,26 @@
     <h2 class="py-5 text-gray-700">Keeping track of the %.</h2>
     <section id="data-display">
       <section id="data-table">
-        <table class="border-collapse border border-slate-400">
+        <table class="border-collapse border border-slate-400 text-slate-600">
+          <colgroup>
+            <col class="w-5" />
+            <col class="w-60" span="2" />
+            <col class="w-15" />
+          </colgroup>
           <thead>
             <tr>
-              <th class="border border-slate-400"></th>
-              <th class="border border-slate-400">First name</th>
-              <th class="border border-slate-400">Last name</th>
-              <th class="border border-slate-400">Participation</th>
+              <th class="border border-slate-400 p-4">&nbsp;</th>
+              <th class="border border-slate-400 text-left pl-3">First name</th>
+              <th class="border border-slate-400 text-left pl-3">Last name</th>
+              <th class="border border-slate-400 px-4">Participation</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(participant, index) in participants" :key="index">
-              <td class="border border-slate-400">{{ participant.id }}</td>
-              <td class="border border-slate-400">{{ participant.firstName }}</td>
-              <td class="border border-slate-400">{{ participant.lastName }}</td>
-              <td class="border border-slate-400">{{ participant.participation }}</td>
+              <td class="border border-slate-400 text-center p-4">{{ participant.id }}</td>
+              <td class="border border-slate-400 pl-3">{{ participant.firstName }}</td>
+              <td class="border border-slate-400 pl-3">{{ participant.lastName }}</td>
+              <td class="border border-slate-400 text-center">{{ participant.participation }}</td>
             </tr>
           </tbody>
         </table>
