@@ -5,7 +5,7 @@
       <input class="p-4" type="text" id="last-name" name="last-name" placeholder="Last name" />
       <input
         class="p-4"
-        type="int"
+        type="number"
         id="participation"
         name="participation"
         placeholder="Participation"
@@ -44,21 +44,67 @@
           </tbody>
         </table>
       </section>
+      <section id="data-graph">
+        <Doughnut ref="chart" :data="chartData" :options="chartOptions" />
+      </section>
     </section>
   </main>
 </template>
 
 <script>
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import { Doughnut } from 'vue-chartjs'
+
+ChartJS.register(ArcElement, Tooltip, Legend)
+
 export default {
   name: 'App',
+  components: {
+    Doughnut
+  },
   data() {
     return {
       participants: [
-        { id: 1, firstName: 'Rodrigo', lastName: 'Bezerra', participation: '30%' },
-        { id: 2, firstName: 'Andre', lastName: 'Lucas', participation: '20%' },
-        { id: 3, firstName: 'Jefferson', lastName: 'Moraes', participation: '50%' }
-      ]
+        { id: 1, firstName: 'Rodrigo', lastName: 'Bezerra', participation: 30 },
+        { id: 2, firstName: 'Andre', lastName: 'Lucas', participation: 20 },
+        { id: 3, firstName: 'Jefferson', lastName: 'Moraes', participation: 50 }
+      ],
+      chartData: {
+        labels: [],
+        datasets: [
+          {
+            backgroundColor: ['#41B883', '#E46651', '#00D8FF'],
+            data: []
+          }
+        ]
+      },
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
     }
+  },
+  methods: {
+    updateChart() {
+      this.chartData.labels = this.participants.map(
+        (participant) => `${participant.firstName} ${participant.lastName}`
+      )
+
+      this.chartData.datasets[0].data = this.participants.map(
+        (participant) => participant.participation
+      )
+
+      this.$refs.chart.update()
+    }
+  },
+  created() {
+    this.chartData.labels = this.participants.map(
+      (participant) => `${participant.firstName} ${participant.lastName}`
+    )
+
+    this.chartData.datasets[0].data = this.participants.map(
+      (participant) => participant.participation
+    )
   }
 }
 </script>
