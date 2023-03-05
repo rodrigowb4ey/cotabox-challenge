@@ -65,7 +65,7 @@
         </table>
       </section>
       <section id="data-graph">
-        <Doughnut ref="chart" :data="chartData" />
+        <Doughnut ref="chart" :data="chartData" :key="chartKey" />
       </section>
     </section>
   </main>
@@ -85,28 +85,37 @@ export default {
   },
   data() {
     return {
+      chartKey: 0,
       form: {
         firstName: '',
         lastName: '',
         participation: null
       },
-      participants: [
-        { id: 1, firstName: 'Rodrigo', lastName: 'Bezerra', participation: 30 },
-        { id: 2, firstName: 'Andre', lastName: 'Lucas', participation: 20 },
-        { id: 3, firstName: 'Jefferson', lastName: 'Moraes', participation: 50 }
-      ],
+      participants: [],
       chartData: {
         labels: [],
         datasets: [
           {
-            backgroundColor: ['#41B883', '#E46651', '#00D8FF'],
+            backgroundColor: [],
             data: []
           }
         ]
       }
     }
   },
+  watch: {
+    chartData: {
+      handler() {
+        this.chartKey += 1
+      },
+      deep: true
+    }
+  },
   methods: {
+    randomHexColor() {
+      const color = Math.floor(Math.random() * 16777215).toString(16)
+      return `#${'0'.repeat(6 - color.length)}${color.toUpperCase()}`
+    },
     updateChart() {
       this.chartData.labels = this.participants.map(
         (participant) => `${participant.firstName} ${participant.lastName}`
@@ -115,6 +124,8 @@ export default {
       this.chartData.datasets[0].data = this.participants.map(
         (participant) => participant.participation
       )
+
+      this.chartData.datasets[0].backgroundColor.push(this.randomHexColor())
     },
     submitForm() {
       const newParticipant = {
@@ -129,16 +140,14 @@ export default {
       this.form.firstName = ''
       this.form.lastName = ''
       this.form.participation = null
+
+      this.updateChart()
     }
   },
   created() {
-    this.chartData.labels = this.participants.map(
-      (participant) => `${participant.firstName} ${participant.lastName}`
-    )
-
-    this.chartData.datasets[0].data = this.participants.map(
-      (participant) => participant.participation
-    )
+    this.chartData.labels.push('No data yet')
+    this.chartData.datasets[0].data.push(1)
+    this.chartData.datasets[0].backgroundColor.push(this.randomHexColor())
   }
 }
 </script>
