@@ -71,11 +71,11 @@ export default {
       },
       participants: [],
       chartData: {
-        labels: [],
+        labels: ['No data yet'],
         datasets: [
           {
-            backgroundColor: [],
-            data: []
+            backgroundColor: ['#964B00'],
+            data: [1]
           }
         ]
       }
@@ -127,37 +127,6 @@ export default {
 
       this.updateChart()
     }
-  },
-  created() {
-    this.chartData.labels.push('No data yet')
-    this.chartData.datasets[0].data.push(1)
-    this.chartData.datasets[0].backgroundColor.push('#964B00')
   }
 }
 </script>
-
-<style scoped>
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 1s;
-}
-
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.fade-enter-to {
-  opacity: 1;
-  animation: fade-in 0.5s;
-}
-</style>

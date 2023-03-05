@@ -37,3 +37,29 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-to {
+  opacity: 1;
+  animation: fade-in 0.5s;
+}
+</style>
