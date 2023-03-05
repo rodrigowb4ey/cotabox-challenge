@@ -1,37 +1,6 @@
 <template>
   <header class="flex items-center justify-center bg-cyan-500">
-    <form class="flex gap-5 py-10 text-xs" @submit.prevent="submitForm">
-      <input
-        class="w-52 px-2 py-3"
-        type="text"
-        id="first-name"
-        name="first-name"
-        placeholder="First name"
-        v-model="form.firstName"
-      />
-      <input
-        class="w-52 px-2 py-3"
-        type="text"
-        id="last-name"
-        name="last-name"
-        placeholder="Last name"
-        v-model="form.lastName"
-      />
-      <input
-        class="w-52 px-2 py-3"
-        type="number"
-        id="participation"
-        name="participation"
-        placeholder="Participation"
-        v-model="form.participation"
-      />
-      <button
-        class="flex place-items-center border-solid border-2 border-white text-white font-bold px-10 text-sm"
-        type="submit"
-      >
-        SEND
-      </button>
-    </form>
+    <DataForm @form-submitted="addParticipant"></DataForm>
   </header>
   <main class="flex items-center justify-center align-middle flex-col">
     <h1 class="mt-10 font-bold text-gray-600 text-2xl">PARTICIPATION DATA</h1>
@@ -40,7 +9,7 @@
       <section id="data-table">
         <DataTable :participants="participants"></DataTable>
       </section>
-      <section id="data-graph">
+      <section id="data-chart">
         <Doughnut ref="chart" :data="chartData" :key="chartKey" />
       </section>
     </section>
@@ -51,6 +20,7 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'vue-chartjs'
 import DataTable from './components/DataTable.vue'
+import DataForm from './components/DataForm.vue'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 ChartJS.defaults.plugins.legend.position = 'right'
@@ -59,17 +29,13 @@ export default {
   name: 'App',
   components: {
     Doughnut,
-    DataTable
+    DataTable,
+    DataForm
   },
   data() {
     return {
-      chartKey: 0,
-      form: {
-        firstName: '',
-        lastName: '',
-        participation: null
-      },
       participants: [],
+      chartKey: 0,
       chartData: {
         labels: ['No data yet'],
         datasets: [
@@ -94,6 +60,18 @@ export default {
       const color = Math.floor(Math.random() * 16777215).toString(16)
       return `#${'0'.repeat(6 - color.length)}${color.toUpperCase()}`
     },
+    addParticipant(participant) {
+      const newParticipant = {
+        id: this.participants.length + 1,
+        firstName: participant.firstName,
+        lastName: participant.lastName,
+        participation: participant.participation
+      }
+
+      this.participants.push(newParticipant)
+
+      this.updateChart()
+    },
     updateChart() {
       const noDataYet = this.chartData.labels.find((label) => label === 'No data yet')
 
@@ -110,22 +88,6 @@ export default {
       )
 
       this.chartData.datasets[0].backgroundColor.push(this.randomHexColor())
-    },
-    submitForm() {
-      const newParticipant = {
-        id: this.participants.length + 1,
-        firstName: this.form.firstName,
-        lastName: this.form.lastName,
-        participation: this.form.participation
-      }
-
-      this.participants.push(newParticipant)
-
-      this.form.firstName = ''
-      this.form.lastName = ''
-      this.form.participation = null
-
-      this.updateChart()
     }
   }
 }
