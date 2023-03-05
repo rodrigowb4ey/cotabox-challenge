@@ -38,31 +38,7 @@
     <h2 class="pt-5 text-[14px] text-gray-700">Keeping track of the %.</h2>
     <section id="data-display" class="flex items-center justify-center gap-x-28 w-full">
       <section id="data-table">
-        <table class="border-collapse border border-slate-400 text-slate-600 text-[10px]">
-          <colgroup>
-            <col class="w-5" />
-            <col class="w-44" span="2" />
-            <col class="w-15" />
-          </colgroup>
-          <thead>
-            <tr>
-              <th class="border border-slate-400 p-2">&nbsp;</th>
-              <th class="border border-slate-400 p-2 text-left">First name</th>
-              <th class="border border-slate-400 p-2 text-left">Last name</th>
-              <th class="border border-slate-400 py-2 px-4">Participation</th>
-            </tr>
-          </thead>
-          <transition-group class="fade" name="fade" tag="tbody">
-            <tr v-for="(participant, index) in participants" :key="index">
-              <td class="border border-slate-400 py-0 px-3 text-center">{{ participant.id }}</td>
-              <td class="border border-slate-400 p-2 py-0">{{ participant.firstName }}</td>
-              <td class="border border-slate-400 p-2">{{ participant.lastName }}</td>
-              <td class="border border-slate-400 py-2 text-center">
-                {{ participant.participation }}
-              </td>
-            </tr>
-          </transition-group>
-        </table>
+        <DataTable :participants="participants"></DataTable>
       </section>
       <section id="data-graph">
         <Doughnut ref="chart" :data="chartData" :key="chartKey" />
@@ -74,6 +50,7 @@
 <script>
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'vue-chartjs'
+import DataTable from './components/DataTable.vue'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 ChartJS.defaults.plugins.legend.position = 'right'
@@ -81,7 +58,8 @@ ChartJS.defaults.plugins.legend.position = 'right'
 export default {
   name: 'App',
   components: {
-    Doughnut
+    Doughnut,
+    DataTable
   },
   data() {
     return {
