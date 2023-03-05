@@ -52,7 +52,7 @@
               <th class="border border-slate-400 py-2 px-4">Participation</th>
             </tr>
           </thead>
-          <tbody>
+          <transition-group class="fade" name="fade" tag="tbody">
             <tr v-for="(participant, index) in participants" :key="index">
               <td class="border border-slate-400 py-0 px-3 text-center">{{ participant.id }}</td>
               <td class="border border-slate-400 p-2 py-0">{{ participant.firstName }}</td>
@@ -61,7 +61,7 @@
                 {{ participant.participation }}
               </td>
             </tr>
-          </tbody>
+          </transition-group>
         </table>
       </section>
       <section id="data-graph">
@@ -157,3 +157,29 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-to {
+  opacity: 1;
+  animation: fade-in 0.5s;
+}
+</style>
