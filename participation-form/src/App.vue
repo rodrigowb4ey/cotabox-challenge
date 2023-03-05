@@ -1,12 +1,13 @@
 <template>
   <header class="flex items-center justify-center bg-cyan-500">
-    <form class="flex gap-5 py-10 text-xs">
+    <form class="flex gap-5 py-10 text-xs" @submit.prevent="submitForm">
       <input
         class="w-52 px-2 py-3"
         type="text"
         id="first-name"
         name="first-name"
         placeholder="First name"
+        v-model="form.firstName"
       />
       <input
         class="w-52 px-2 py-3"
@@ -14,6 +15,7 @@
         id="last-name"
         name="last-name"
         placeholder="Last name"
+        v-model="form.lastName"
       />
       <input
         class="w-52 px-2 py-3"
@@ -21,6 +23,7 @@
         id="participation"
         name="participation"
         placeholder="Participation"
+        v-model="form.participation"
       />
       <button
         class="flex place-items-center border-solid border-2 border-white text-white font-bold px-10 text-sm"
@@ -82,6 +85,11 @@ export default {
   },
   data() {
     return {
+      form: {
+        firstName: '',
+        lastName: '',
+        participation: null
+      },
       participants: [
         { id: 1, firstName: 'Rodrigo', lastName: 'Bezerra', participation: 30 },
         { id: 2, firstName: 'Andre', lastName: 'Lucas', participation: 20 },
@@ -107,8 +115,20 @@ export default {
       this.chartData.datasets[0].data = this.participants.map(
         (participant) => participant.participation
       )
+    },
+    submitForm() {
+      const newParticipant = {
+        id: this.participants.length + 1,
+        firstName: this.form.firstName,
+        lastName: this.form.lastName,
+        participation: this.form.participation
+      }
 
-      this.$refs.chart.update()
+      this.participants.push(newParticipant)
+
+      this.form.firstName = ''
+      this.form.lastName = ''
+      this.form.participation = null
     }
   },
   created() {
