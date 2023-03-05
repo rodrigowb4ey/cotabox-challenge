@@ -117,6 +117,12 @@ export default {
       return `#${'0'.repeat(6 - color.length)}${color.toUpperCase()}`
     },
     updateChart() {
+      const noDataYet = this.chartData.labels.find((label) => label === 'No data yet')
+
+      if (noDataYet) {
+        this.chartData.datasets[0].backgroundColor = []
+      }
+
       this.chartData.labels = this.participants.map(
         (participant) => `${participant.firstName} ${participant.lastName}`
       )
@@ -147,7 +153,7 @@ export default {
   created() {
     this.chartData.labels.push('No data yet')
     this.chartData.datasets[0].data.push(1)
-    this.chartData.datasets[0].backgroundColor.push(this.randomHexColor())
+    this.chartData.datasets[0].backgroundColor.push('#964B00')
   }
 }
 </script>
