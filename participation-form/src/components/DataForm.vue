@@ -34,7 +34,7 @@
       <ErrorMessage class="text-red-600" name="participation"></ErrorMessage>
     </section>
     <button
-      class="flex place-items-center border-solid border-2 border-white text-white font-bold px-10 text-sm"
+      class="flex place-items-center border-solid border-2 border-white text-white h-10 px-10 font-bold text-sm"
       type="submit"
     >
       SEND
