@@ -7,7 +7,10 @@
     <h2 class="pt-5 text-[14px] text-gray-700">Keeping track of the %.</h2>
     <section id="data-display" class="flex items-center justify-center gap-x-28 w-full">
       <section id="data-table">
-        <DataTable :participants="participants"></DataTable>
+        <DataTable
+          :participants="participants"
+          :totalParticipations="totalNumOfParticipations"
+        ></DataTable>
       </section>
       <section id="data-chart">
         <Doughnut ref="chart" :data="chartData" :key="chartKey" />
@@ -45,6 +48,19 @@ export default {
           }
         ]
       }
+    }
+  },
+  computed: {
+    totalNumOfParticipations() {
+      let sum = 0
+
+      if (this.participants.length > 0) {
+        this.participants.forEach((participant) => {
+          sum += participant.participation
+        })
+      }
+
+      return sum
     }
   },
   watch: {

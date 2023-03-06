@@ -19,7 +19,7 @@
         <td class="border border-slate-400 p-2 py-0">{{ participant.firstName }}</td>
         <td class="border border-slate-400 p-2">{{ participant.lastName }}</td>
         <td class="border border-slate-400 py-2 text-center">
-          {{ participant.participation }}
+          {{ ((participant.participation / totalParticipations) * 100).toFixed(2) }}%
         </td>
       </tr>
     </transition-group>
@@ -32,6 +32,10 @@ export default {
   props: {
     participants: {
       type: Object,
+      required: true
+    },
+    totalParticipations: {
+      type: Number,
       required: true
     }
   }
