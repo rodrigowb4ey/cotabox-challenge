@@ -93,6 +93,34 @@ class TestParticipantsEndpoint:
         )
         assert response.status_code == status.HTTP_201_CREATED
 
+    def test_create_participant_authenticated_with_invalid_data(self):
+        url = reverse('participant-list')
+        self.client.force_authenticate(self.common_user)
+        response = self.client.post(
+            url,
+            {
+                'first_name': 'Fir#st',
+                'last_name': 'L@st',
+                'participation': -50,
+            },
+        )
+
+        response_data = response.json()
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert (
+            response_data['first_name'][0]
+            == 'First name should only contain alphabetic characters and hyphens'
+        )
+        assert (
+            response_data['last_name'][0]
+            == 'Last name should only contain alphabetic characters and hyphens'
+        )
+        assert (
+            response_data['participation'][0]
+            == 'Ensure this value is greater than or equal to 0.'
+        )
+
     def test_edit_participant_unauthenticated(self):
         url = reverse('participant-detail', kwargs={'pk': self.participant.pk})
         new_data = {
@@ -116,6 +144,32 @@ class TestParticipantsEndpoint:
         assert response.data['first_name'] == new_data['first_name']
         assert response.data['last_name'] == new_data['last_name']
         assert response.data['participation'] == new_data['participation']
+
+    def test_edit_participant_authenticated_with_invalid_data(self):
+        url = reverse('participant-detail', kwargs={'pk': self.participant.pk})
+        self.client.force_authenticate(self.common_user)
+        new_data = {
+            'first_name': 'Fir#st',
+            'last_name': 'L@st',
+            'participation': -50,
+        }
+        response = self.client.put(url, new_data)
+
+        response_data = response.json()
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        assert (
+            response_data['first_name'][0]
+            == 'First name should only contain alphabetic characters and hyphens'
+        )
+        assert (
+            response_data['last_name'][0]
+            == 'Last name should only contain alphabetic characters and hyphens'
+        )
+        assert (
+            response_data['participation'][0]
+            == 'Ensure this value is greater than or equal to 0.'
+        )
 
     def test_delete_participant_unauthenticated(self):
         url = reverse('participant-detail', kwargs={'pk': self.participant.pk})
