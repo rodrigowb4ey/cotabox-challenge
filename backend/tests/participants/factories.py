@@ -3,7 +3,6 @@ from faker import Faker
 
 from participants.models import Participant
 
-
 fake = Faker()
 
 

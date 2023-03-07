@@ -16,7 +16,4 @@ class ParticipantViewSet(ModelViewSet):
         DjangoFilterBackend,
     )
     filterset_fields = ['first_name', 'last_name', 'participation']
-    search_fields = [
-        'first_name',
-        'last_name'
-    ]
+    search_fields = ['first_name', 'last_name']

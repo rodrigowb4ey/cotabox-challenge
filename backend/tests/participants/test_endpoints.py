@@ -1,7 +1,7 @@
 import pytest
-from faker import Faker
-from django.urls import reverse
 from django.contrib.auth.models import User
+from django.urls import reverse
+from faker import Faker
 from rest_framework import status
 from rest_framework.test import APIClient
 
@@ -10,6 +10,7 @@ from participants.models import Participant
 from .factories import ParticipantFactory
 
 fake = Faker()
+
 
 @pytest.mark.django_db
 class TestParticipantsEndpoint:
@@ -29,7 +30,9 @@ class TestParticipantsEndpoint:
         data = response.json()
 
         assert response.status_code == status.HTTP_200_OK
-        assert len(data) == 1 # Assumes there's one register (self.participant)
+        assert (
+            len(data) == 1
+        )   # Assumes there's one register (self.participant)
 
     def test_list_participants_authenticated(self):
         url = reverse('participant-list')
@@ -38,7 +41,9 @@ class TestParticipantsEndpoint:
         data = response.json()
 
         assert response.status_code == status.HTTP_200_OK
-        assert len(data) == 1 # Assumes there's one register (self.participant)
+        assert (
+            len(data) == 1
+        )   # Assumes there's one register (self.participant)
 
     def test_retrieve_participant_by_id_unauthenticated(self):
         url = reverse('participant-detail', kwargs={'pk': self.participant.pk})
@@ -70,8 +75,8 @@ class TestParticipantsEndpoint:
             {
                 'first_name': fake.first_name(),
                 'last_name': fake.last_name(),
-                'participation': fake.random_int(min=1, max=100)
-            }
+                'participation': fake.random_int(min=1, max=100),
+            },
         )
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
@@ -83,8 +88,8 @@ class TestParticipantsEndpoint:
             {
                 'first_name': fake.first_name(),
                 'last_name': fake.last_name(),
-                'participation': fake.random_int(min=1, max=100)
-            }
+                'participation': fake.random_int(min=1, max=100),
+            },
         )
         assert response.status_code == status.HTTP_201_CREATED
 
@@ -93,7 +98,7 @@ class TestParticipantsEndpoint:
         new_data = {
             'first_name': fake.first_name(),
             'last_name': fake.last_name(),
-            'participation': fake.random_int(min=1, max=100)
+            'participation': fake.random_int(min=1, max=100),
         }
         response = self.client.put(url, new_data)
         assert response.status_code == status.HTTP_403_FORBIDDEN
@@ -104,7 +109,7 @@ class TestParticipantsEndpoint:
         new_data = {
             'first_name': fake.first_name(),
             'last_name': fake.last_name(),
-            'participation': fake.random_int(min=1, max=100)
+            'participation': fake.random_int(min=1, max=100),
         }
         response = self.client.put(url, new_data)
         assert response.status_code == status.HTTP_200_OK

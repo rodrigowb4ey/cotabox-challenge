@@ -11,10 +11,14 @@ class ParticipantSerializer(serializers.ModelSerializer):
 
     def validate_first_name(self, value):
         if not all(char.isalpha() or char == '-' for char in value):
-            raise ValidationError("First name should only contain alphabetic characters and hyphens")
+            raise ValidationError(
+                'First name should only contain alphabetic characters and hyphens'
+            )
         return value
 
     def validate_last_name(self, value):
         if not all(char.isalpha() or char == '-' for char in value):
-            raise ValidationError("Last name should only contain alphabetic characters and hyphens")
+            raise ValidationError(
+                'Last name should only contain alphabetic characters and hyphens'
+            )
         return value
