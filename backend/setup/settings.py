@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     'rest_framework',
     'django_extensions',
     'participants',
@@ -92,14 +93,15 @@ DATABASES = {
 # Django REST Framework
 # (Doc link)
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_FILTER_BACKENDS': [
-#         'django_filters.rest_framework.DjangoFilterBackend'
-#     ],
-#     # 'DEFAULT_AUTHENTICATION_CLASSES': [
-#     #     'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-#     # ],
-# }
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    # ],
+    
+}
 
 
 # Password validation
