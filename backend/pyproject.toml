@@ -12,10 +12,19 @@ djangorestframework = "^3.14.0"
 django-extensions = "^3.2.1"
 gunicorn = "^20.1.0"
 psycopg2-binary = "^2.9.5"
+pytest = "^7.2.2"
+pytest-django = "^4.5.2"
 
 [tool.poetry.group.dev.dependencies]
 blue = "^0.9.1"
 isort = "^5.12.0"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "setup.settings"
+python_files = "tests.py test_*.py *_tests.py"
+testpaths = [
+    "tests",
+]
 
 [build-system]
 requires = ["poetry-core"]
