@@ -92,14 +92,14 @@ DATABASES = {
 # Django REST Framework
 # (Doc link)
 
-REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend'
-    ],
-    # 'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-    # ],
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_FILTER_BACKENDS': [
+#         'django_filters.rest_framework.DjangoFilterBackend'
+#     ],
+#     # 'DEFAULT_AUTHENTICATION_CLASSES': [
+#     #     'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+#     # ],
+# }
 
 
 # Password validation
