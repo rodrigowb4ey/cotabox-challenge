@@ -29,6 +29,7 @@ python_files = "tests.py test_*.py *_tests.py"
 testpaths = [
     "tests",
 ]
+filterwarnings = "ignore::DeprecationWarning:pkg_resources.*"
 
 [build-system]
 requires = ["poetry-core"]

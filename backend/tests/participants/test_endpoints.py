@@ -78,7 +78,7 @@ class TestParticipantsEndpoint:
                 'participation': fake.random_int(min=1, max=100),
             },
         )
-        assert response.status_code == status.HTTP_403_FORBIDDEN
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_create_participant_authenticated(self):
         url = reverse('participant-list')
@@ -129,7 +129,7 @@ class TestParticipantsEndpoint:
             'participation': fake.random_int(min=1, max=100),
         }
         response = self.client.put(url, new_data)
-        assert response.status_code == status.HTTP_403_FORBIDDEN
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_edit_participant_authenticated(self):
         url = reverse('participant-detail', kwargs={'pk': self.participant.pk})
@@ -174,7 +174,7 @@ class TestParticipantsEndpoint:
     def test_delete_participant_unauthenticated(self):
         url = reverse('participant-detail', kwargs={'pk': self.participant.pk})
         response = self.client.delete(url)
-        assert response.status_code == status.HTTP_403_FORBIDDEN
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
     def test_delete_participant_authenticated(self):
         url = reverse('participant-detail', kwargs={'pk': self.participant.pk})
