@@ -16,8 +16,8 @@
     <transition-group class="fade" name="fade" tag="tbody">
       <tr v-for="(participant, index) in participants" :key="index">
         <td class="border border-slate-400 py-0 px-3 text-center">{{ participant.id }}</td>
-        <td class="border border-slate-400 p-2 py-0">{{ participant.firstName }}</td>
-        <td class="border border-slate-400 p-2">{{ participant.lastName }}</td>
+        <td class="border border-slate-400 p-2 py-0">{{ participant.first_name }}</td>
+        <td class="border border-slate-400 p-2">{{ participant.last_name }}</td>
         <td class="border border-slate-400 py-2 text-center">
           {{ ((participant.participation / totalParticipations) * 100).toFixed(2) }}%
         </td>

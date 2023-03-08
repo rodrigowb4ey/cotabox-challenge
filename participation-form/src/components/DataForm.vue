@@ -75,6 +75,10 @@ export default {
         return 'This field is required'
       }
 
+      if (value != value.trim()) {
+        return 'No leading or trailing spaces'
+      }
+
       if (!/^[a-zA-Z]+$/.test(value)) {
         return 'Please enter a valid name (letters only)'
       }
@@ -87,7 +91,7 @@ export default {
       }
 
       if (!/^\d+$/.test(value)) {
-        return 'Please enter a valid integer'
+        return 'Please enter a positive integer'
       }
 
       return true
