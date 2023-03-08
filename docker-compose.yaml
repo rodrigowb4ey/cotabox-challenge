@@ -17,6 +17,18 @@ services:
       - ./backend/.env
     depends_on:
       - db-dev
+  frontend:
+    user: root
+    build:
+      context: ./participation-form/
+      dockerfile: Dockerfile
+    command: npm run dev
+    volumes:
+      - ./participation-form/:/app/
+    ports:
+      - 5173:5173
+    depends_on:
+      - web
   db-dev:
     image: postgres:15.1-alpine
     restart: always
