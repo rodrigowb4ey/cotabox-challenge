@@ -23,6 +23,8 @@ from participants.routers import router
 urlpatterns = (
     [
         path('api/', include(router.urls)),
+        path('api/auth/', include('dj_rest_auth.urls')),
+        path('api/auth/register/', include('dj_rest_auth.registration.urls')),
         path('admin/', admin.site.urls),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
