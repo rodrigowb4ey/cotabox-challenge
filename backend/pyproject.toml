@@ -18,6 +18,7 @@ factory-boy = "^3.2.1"
 django-filter = "^22.1"
 dj-rest-auth = {extras = ["with-social"], version = "^3.0.0"}
 djangorestframework-simplejwt = "^5.2.2"
+django-cors-headers = "^3.14.0"
 
 [tool.poetry.group.dev.dependencies]
 blue = "^0.9.1"
