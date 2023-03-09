@@ -65,6 +65,12 @@ export default {
 
           localStorage.setItem('access_token', accessToken)
           console.log(localStorage)
+          this.$swal.fire({
+            title: 'Logged in!',
+            icon: 'success',
+            timer: 1000,
+            timerProgressBar: true
+          })
           this.$emit('login-form-closed', true)
           this.clearLoginForm()
         }
