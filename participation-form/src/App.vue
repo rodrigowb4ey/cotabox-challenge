@@ -217,28 +217,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-}
-
-.modal-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000;
-}
-
-.modal-content {
-  background-color: #fff;
-  padding: 1rem;
-}
-</style>
