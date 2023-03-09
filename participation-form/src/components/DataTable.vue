@@ -50,15 +50,27 @@ export default {
   },
   methods: {
     async removeParticipant(id) {
-      const response = await axios.delete(`http://localhost:8000/api/participants/${id}/`, {
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc4MzIxNzc2LCJpYXQiOjE2NzgzMjE0NzYsImp0aSI6ImNiY2ZmODg3YTBlYzRlNzk5YTdlYjg0NDU0N2ZmZjIzIiwidXNlcl9pZCI6MX0.leE-nid98y72eMARjzJAkEOTljml-Hg46ufnQRo0aJU'
-        }
-      })
+      let accessToken = localStorage.getItem('access_token')
+      try {
+        const response = await axios.delete(`http://localhost:8000/api/participants/${id}/`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        })
 
-      this.$emit('participant-deleted', id)
-      console.log(response)
+        if (response.status == 204) {
+          this.$emit('participant-deleted', id)
+          console.log(response)
+        }
+      } catch (error) {
+        console.error(error)
+        this.$swal.fire({
+          title: 'Unauthorized',
+          icon: 'error',
+          timer: 1000,
+          timerProgressBar: true
+        })
+      }
     }
   }
 }
