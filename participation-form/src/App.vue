@@ -1,9 +1,12 @@
 <template>
   <header class="flex gap-8 items-center justify-center bg-cyan-500">
     <DataForm @form-submitted="addParticipant"></DataForm>
-    <nav class="flex items-center justify-end px-4 py-2 bg-gray-800">
+    <nav v-if="!isAuthenticated" class="flex items-center justify-end px-4 py-2 bg-gray-800">
       <button @click="showLoginModal = true" class="text-white text-sm mr-4">Login</button>
       <button @click="showRegisterModal = true" class="text-white text-sm">Register</button>
+    </nav>
+    <nav v-else class="flex items-center justify-end px-4 py-2 bg-gray-800">
+      <button @click="logout" class="text-white text-sm">Logout</button>
     </nav>
   </header>
   <main class="flex items-center justify-center align-middle flex-col">
@@ -63,6 +66,7 @@ export default {
   },
   data() {
     return {
+      isAuthenticated: localStorage.getItem('access_token') ? true : false,
       showLoginModal: false,
       showRegisterModal: false,
       participants: [],
@@ -106,11 +110,39 @@ export default {
     }
   },
   methods: {
+    async logout() {
+      let accessToken = localStorage.getItem('access_token')
+
+      console.log(accessToken)
+
+      try {
+        const response = await axios.post('http://localhost:8000/api/auth/logout/', {
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc4MzkxNTY1LCJpYXQiOjE2NzgzOTEyNjUsImp0aSI6IjUzNWQ3NDJkYzI3ZTRkYWJhY2VmNWU3ZDk3Mzg4ODUzIiwidXNlcl9pZCI6MX0.Uwx1WGYnLOqGfQ--FNWRndv4VdbMMjR4_SEFv3uIgvM`
+          }
+        })
+
+        if (response.status == 200) {
+          localStorage.removeItem('access_token')
+          this.$swal.fire({
+            title: 'Logged out!',
+            icon: 'success',
+            timer: 1000,
+            timerProgressBar: true
+          })
+          this.isAuthenticated = false
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    },
     closeRegisterModal() {
       this.showRegisterModal = false
+      this.isAuthenticated = true
     },
     closeLoginModal() {
       this.showLoginModal = false
+      this.isAuthenticated = true
     },
     async removeParticipantFromList(id) {
       const index = this.participants.findIndex((participant) => participant.id == id)
@@ -122,11 +154,12 @@ export default {
       return `#${'0'.repeat(6 - color.length)}${color.toUpperCase()}`
     },
     async addParticipant(participant) {
+      let accessToken = localStorage.getItem('access_token')
+
       try {
         const response = await axios.post('http://localhost:8000/api/participants/', participant, {
           headers: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc4MzIyMzU2LCJpYXQiOjE2NzgzMjIwNTYsImp0aSI6IjQ5ZmViZDVhOGMyNDQ5NTdiNzViNzdmNDM5ZGE4OWZmIiwidXNlcl9pZCI6MX0.O1oI6UHiQQ-6GGW3fdYsOt0ddP72Wu-6XPoaZkx1fBM'
+            Authorization: `Bearer ${accessToken}`
           }
         })
 
@@ -136,6 +169,12 @@ export default {
         }
       } catch (error) {
         console.error(error)
+        this.$swal.fire({
+          title: 'Unauthorized',
+          icon: 'error',
+          timer: 1000,
+          timerProgressBar: true
+        })
       }
     },
     updateChartData(participants) {
