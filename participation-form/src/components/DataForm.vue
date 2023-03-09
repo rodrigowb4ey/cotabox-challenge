@@ -8,6 +8,7 @@
         placeholder="First name"
         v-model="form.first_name"
         :rules="validateName"
+        :disabled="!isAuthenticated"
       />
       <ErrorMessage class="text-red-600" name="first-name"></ErrorMessage>
     </section>
@@ -19,6 +20,7 @@
         placeholder="Last name"
         v-model="form.last_name"
         :rules="validateName"
+        :disabled="!isAuthenticated"
       />
       <ErrorMessage class="text-red-600" name="last-name"></ErrorMessage>
     </section>
@@ -30,12 +32,14 @@
         placeholder="Participation"
         v-model="form.participation"
         :rules="validateParticipation"
+        :disabled="!isAuthenticated"
       />
       <ErrorMessage class="text-red-600" name="participation"></ErrorMessage>
     </section>
     <button
       class="flex place-items-center border-solid border-2 border-white text-white h-10 px-10 font-bold text-sm"
       type="submit"
+      :disabled="!isAuthenticated"
     >
       SEND
     </button>
@@ -47,6 +51,12 @@ import { Form as VeeForm, Field, ErrorMessage } from 'vee-validate'
 
 export default {
   name: 'DataForm',
+  props: {
+    isAuthenticated: {
+      type: Object,
+      required: true
+    }
+  },
   components: {
     VeeForm,
     Field,

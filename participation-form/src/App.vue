@@ -1,6 +1,6 @@
 <template>
   <header class="flex gap-8 items-center justify-center bg-cyan-500">
-    <DataForm @form-submitted="addParticipant"></DataForm>
+    <DataForm :is-authenticated="isAuthenticated" @form-submitted="addParticipant"></DataForm>
     <nav v-if="!isAuthenticated" class="flex items-center justify-end px-4 py-2 bg-gray-800">
       <button @click="showLoginModal = true" class="text-white text-sm mr-4">Login</button>
       <button @click="showRegisterModal = true" class="text-white text-sm">Register</button>
