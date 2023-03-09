@@ -6,7 +6,7 @@
         type="text"
         name="first-name"
         placeholder="First name"
-        v-model="form.firstName"
+        v-model="form.first_name"
         :rules="validateName"
       />
       <ErrorMessage class="text-red-600" name="first-name"></ErrorMessage>
@@ -17,7 +17,7 @@
         type="text"
         name="last-name"
         placeholder="Last name"
-        v-model="form.lastName"
+        v-model="form.last_name"
         :rules="validateName"
       />
       <ErrorMessage class="text-red-600" name="last-name"></ErrorMessage>
@@ -55,8 +55,8 @@ export default {
   data() {
     return {
       form: {
-        firstName: '',
-        lastName: '',
+        first_name: '',
+        last_name: '',
         participation: null
       }
     }
@@ -66,8 +66,8 @@ export default {
       this.form.participation = parseInt(this.form.participation)
 
       this.$emit('form-submitted', this.form)
-      this.form.firstName = ''
-      this.form.lastName = ''
+      this.form.first_name = ''
+      this.form.last_name = ''
       this.form.participation = null
     },
     validateName(value) {
