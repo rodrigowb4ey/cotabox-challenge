@@ -89,7 +89,7 @@ export default {
         return 'No leading or trailing spaces'
       }
 
-      if (!/^[a-zA-Z]+$/.test(value)) {
+      if (!/^[a-zA-ZÀ-ÿ'-]+$/.test(value)) {
         return 'Please enter a valid name (letters only)'
       }
 
