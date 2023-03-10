@@ -114,7 +114,7 @@ export default {
       let accessToken = localStorage.getItem('access_token')
 
       try {
-        const response = await axios.post('http://localhost:8000/api/auth/logout/', {
+        const response = await axios.post('/api/auth/logout/', {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }
@@ -156,7 +156,7 @@ export default {
       let accessToken = localStorage.getItem('access_token')
 
       try {
-        const response = await axios.post('http://localhost:8000/api/participants/', participant, {
+        const response = await axios.post('/api/participants/', participant, {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }
@@ -186,7 +186,7 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get('http://localhost:8000/api/participants')
+      const response = await axios.get('/api/participants/')
 
       if (response.data.length > 0) {
         this.updateChartData(response.data)

@@ -75,10 +75,7 @@ export default {
   methods: {
     async register() {
       try {
-        const response = await axios.post(
-          'http://localhost:8000/api/auth/register/',
-          this.registerForm
-        )
+        const response = await axios.post('/api/auth/register/', this.registerForm)
         if (response.status == 201) {
           const accessToken = response.data['access_token']
 

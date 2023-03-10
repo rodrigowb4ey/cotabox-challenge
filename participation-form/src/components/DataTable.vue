@@ -52,7 +52,7 @@ export default {
     async removeParticipant(id) {
       let accessToken = localStorage.getItem('access_token')
       try {
-        const response = await axios.delete(`http://localhost:8000/api/participants/${id}/`, {
+        const response = await axios.delete(`/api/participants/${id}/`, {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }

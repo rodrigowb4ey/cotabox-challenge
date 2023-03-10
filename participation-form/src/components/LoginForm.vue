@@ -59,7 +59,7 @@ export default {
   methods: {
     async login() {
       try {
-        const response = await axios.post('http://localhost:8000/api/auth/login/', this.loginForm)
+        const response = await axios.post('/api/auth/login/', this.loginForm)
         if (response.status == 200) {
           const accessToken = response.data['access_token']
 
