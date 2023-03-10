@@ -54,6 +54,15 @@ Desafio técnico para a vaga de Desenvolvedor Full Stack @ Cotabox
 - Execute "docker-compose up" (ou docker compose up, dependendo da versão) no diretório raiz do projeto.
 - Acesse o aplicativo em http://localhost:5173.
 
+### Testes
+- Para rodar os testes do back-end:
+
+    docker-compose exec web pytest -vv
+
+- Ou, dependendo da versão do Docker:
+
+    docker compose exec web pytest -vv
+
 ### Uso
 - Registre-se ou faça login no aplicativo.
 - Preencha o formulário de participação e envie-o.
