@@ -2,6 +2,32 @@
 
 Desafio técnico para a vaga de Desenvolvedor Full Stack @ Cotabox
 
+## Sumário
+
+- [Overview](#overview)
+  - [Screenshots](#screenshots)
+- [Features](#features)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Instalação](#instalacao)
+- [Uso](#compile-and-minify-for-production)
+- [Autor](#autor)
+
+## Overview
+
+### Screenshots
+
+- Main page ('/')
+
+![](.github/main_view.jpg)
+
+- API Swagger UI ('/api/schema/swagger-ui/')
+
+![](.github/swagger.jpg)
+
+- API Redoc UI
+
+![](.github/redoc.jpg)
+
 ### Features
 - Autenticação de usuário: Os usuários podem se registrar e fazer login para acessar a funcionalidade do aplicativo.
 - Registro de Participação: Usuários autenticados podem registrar participantes por meio de um formulário simples. O aplicativo calculará a porcentagem que cada participação representa em relação ao número total de participações.
@@ -34,5 +60,5 @@ Desafio técnico para a vaga de Desenvolvedor Full Stack @ Cotabox
 - Visualize suas participações registradas na tabela e no gráfico de rosca.
 
 
-#### Creditos
+#### Autor
 - Rodrigo Bezerra Saraiva
