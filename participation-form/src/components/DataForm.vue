@@ -53,7 +53,7 @@ export default {
   name: 'DataForm',
   props: {
     isAuthenticated: {
-      type: Object,
+      type: Boolean,
       required: true
     }
   },
