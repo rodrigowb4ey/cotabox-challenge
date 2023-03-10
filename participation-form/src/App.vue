@@ -113,12 +113,10 @@ export default {
     async logout() {
       let accessToken = localStorage.getItem('access_token')
 
-      console.log(accessToken)
-
       try {
         const response = await axios.post('http://localhost:8000/api/auth/logout/', {
           headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc4MzkxNTY1LCJpYXQiOjE2NzgzOTEyNjUsImp0aSI6IjUzNWQ3NDJkYzI3ZTRkYWJhY2VmNWU3ZDk3Mzg4ODUzIiwidXNlcl9pZCI6MX0.Uwx1WGYnLOqGfQ--FNWRndv4VdbMMjR4_SEFv3uIgvM`
+            Authorization: `Bearer ${accessToken}`
           }
         })
 
@@ -144,14 +142,15 @@ export default {
       this.showLoginModal = false
       this.isAuthenticated = true
     },
+    randomHexColor() {
+      const color = Math.floor(Math.random() * 16777215).toString(16)
+      return `#${'0'.repeat(6 - color.length)}${color.toUpperCase()}`
+    },
     async removeParticipantFromList(id) {
       const index = this.participants.findIndex((participant) => participant.id == id)
 
       this.participants.splice(index, 1)
-    },
-    randomHexColor() {
-      const color = Math.floor(Math.random() * 16777215).toString(16)
-      return `#${'0'.repeat(6 - color.length)}${color.toUpperCase()}`
+      this.chartData.datasets[0].backgroundColor.splice(index, 1)
     },
     async addParticipant(participant) {
       let accessToken = localStorage.getItem('access_token')
@@ -183,17 +182,6 @@ export default {
       )
 
       this.chartData.datasets[0].data = participants.map((participant) => participant.participation)
-    },
-    updateChart() {
-      const noDataYet = this.chartData.labels.find((label) => label === 'No data yet')
-
-      if (noDataYet) {
-        this.chartData.datasets[0].backgroundColor = []
-      }
-
-      this.updateChartData(this.participants)
-
-      this.chartData.datasets[0].backgroundColor.push(this.randomHexColor())
     }
   },
   async created() {
