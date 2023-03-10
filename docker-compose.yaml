@@ -13,8 +13,16 @@ services:
       - media_volume:/app/media/
     ports:
       - 8000:8000
-    env_file:
-      - ./backend/.env
+    environment:
+      - SECRET_KEY=whatever
+      - DEBUG=1
+      - DJANGO_ALLOWED_HOSTS=*
+      - SQL_ENGINE=django.db.backends.postgresql
+      - SQL_DATABASE=postgres
+      - SQL_USER=user
+      - SQL_PASSWORD=password
+      - SQL_HOST=db-dev
+      - SQL_PORT=5432
     depends_on:
       - db-dev
   frontend:
