@@ -94,7 +94,22 @@ export default {
           this.clearRegisterForm()
         }
       } catch (error) {
-        console.error(error)
+        let errorMessage = ''
+
+        const errors = error.response.data
+
+        for (const key in errors) {
+          const messages = errors[key]
+          errorMessage += '\n' + messages.join(', ')
+        }
+
+        this.$swal.fire({
+          title: 'Unauthorized',
+          text: errorMessage,
+          icon: 'error',
+          timer: 2000,
+          timerProgressBar: true
+        })
       }
     },
     clearRegisterForm() {
@@ -120,6 +135,10 @@ export default {
 
       if (value != value.trim()) {
         return 'No leading or trailing spaces'
+      }
+
+      if (value.length < 8) {
+        return 'Password must contain at least 8 characters'
       }
 
       return true
