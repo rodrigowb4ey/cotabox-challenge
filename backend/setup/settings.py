@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'corsheaders',
     'django_extensions',
+    'drf_spectacular',
     'participants',
 ]
 
@@ -108,12 +109,21 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 REST_AUTH = {
     'USE_JWT': True,
     'JWT_AUTH_COOKIE': 'user-auth',
     'JWT_AUTH_REFRESH_COOKIE': 'user-refresh-token',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Participation Form API',
+    'DESCRIPTION': 'REST API to store Participants data',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
 }
 
 # Password validation
